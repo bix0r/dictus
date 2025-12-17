@@ -29,8 +29,11 @@ final class DateParser
 		}
 	}
 
-	public static function tryUnknown(string|int|\DateTimeInterface $date): ?\DateTimeImmutable
+	public static function tryUnknown(mixed $date): ?\DateTimeImmutable
 	{
+		if (!$date) {
+			return null;
+		}
 		if ($date instanceof \DateTimeImmutable) {
 			return $date;
 		}
@@ -39,6 +42,9 @@ final class DateParser
 		}
 		if (is_int($date) || is_numeric($date)) {
 			return \DateTimeImmutable::createFromFormat('U', (string)$date) ?: null;
+		}
+		if (!is_string($date)) {
+			return null;
 		}
 		try {
 			return new \DateTimeImmutable($date);

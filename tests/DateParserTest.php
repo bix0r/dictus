@@ -137,6 +137,18 @@ class DateParserTest extends TestCase
 		$this->assertNull($date);
 	}
 
+	public function testTryUnknownWithNullValue(): void
+	{
+		$date = DateParser::tryUnknown(null);
+		$this->assertNull($date);
+	}
+
+	public function testTryUnknownWithEmptyString(): void
+	{
+		$date = DateParser::tryUnknown('');
+		$this->assertNull($date);
+	}
+
 	/**
 	 * @dataProvider validDates
 	 */
